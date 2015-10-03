@@ -1,0 +1,33 @@
+#!/bin/sh
+
+type=$1
+
+function clean_files {
+  rm -f /etc/X11/xorg.conf
+  rm -f /etc/X11/xorg.conf.d/99-nvidia.conf
+  rm -f /etc/X11/xinit/xinitrc.d/nvidia
+  rm -f /etc/ld.so.conf.d/nvidia-lib64.conf
+  rm -f /etc/ld.so.conf.d/intel-lib64.conf
+}
+
+case $type in
+  nvidia)
+    clean_files
+    ln -s /etc/fedora-prime/xorg.conf.d.nvidia.conf /etc/X11/xorg.conf.d/99-nvidia.conf
+    ln -s /etc/fedora-prime/ld.nvidia.conf /etc/ld.so.conf.d/nvidia-lib64.conf
+    ln -s /etc/fedora-prime/xorg.nvidia.conf /etc/X11/xorg.conf
+    ln -s /etc/fedora-prime/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
+    ldconfig
+  ;;
+  intel)
+    clean_files
+    ln -s /etc/fedora-prime/ld.intel.conf /etc/ld.so.conf.d/intel-lib64.conf
+    ln -s /etc/fedora-prime/xorg.intel.conf /etc/X11/xorg.conf
+    ldconfig
+  ;;
+  *)
+  echo "fedora-prime-select nvidia|intel"
+  exit
+  ;;
+esac
+

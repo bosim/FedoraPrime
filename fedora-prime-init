@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ ! -d /etc/fedora-prime ];
+then
+  mkdir /etc/fedora-prime
+fi
+
+cp *.conf /etc/fedora-prime
+cp xinitrc.nvidia /etc/fedora-prime
+
+
