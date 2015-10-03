@@ -20,9 +20,9 @@ Features
 --------
 
 The package provides two scripts, one for setting up the config files and one for doing the actual switching.
-Since GDM relies on Wayland on Fedora 22, the switching is painless, just run 
+Since GDM relies on Wayland on Fedora 22, the switching is painless, just run:
 
-  fedora-prime-select nvidia|intel
+    fedora-prime-select nvidia|intel
 
 and logout/login, voila you are using the requested driver.
 
