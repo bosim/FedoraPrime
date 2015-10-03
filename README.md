@@ -8,7 +8,7 @@ made for other distributions. This is exactly the functionality this package pro
 Background
 ----------
 
-In 20xx Linus Torvalds gave his famous talk at the University of Helsinki where he gave NVidia the middle finger
+In 2012, Linus Torvalds gave his famous talk at the University of Helsinki where he gave NVidia the middle finger
 due to lack of support of, in particular, device drivers for the optimus laptop. Not long after NVIDIA provided
 both documentation for developers of the nouveau project (an open-source implementation of the NVIDIA drivers)
 and partially support for switching between the Intel and NVIDIA drivers. Canonical then began working on their
