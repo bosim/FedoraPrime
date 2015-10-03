@@ -34,7 +34,7 @@ kernel module is compiled. Put the following argument for the kernel in /boot/gr
 
     nouveau.modeset=0 rd.driver.blacklist=nouveau 
 
-Backup the following files (will be deleted by fedora-prime-select): /etc/X11/xorg.conf, /etc/X11/xorg.conf.d/99-nvidia.conf, /etc/ld.so.conf.d/nvidia-lib64.conf
+Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`, `/etc/X11/xorg.conf.d/99-nvidia.conf`, `/etc/ld.so.conf.d/nvidia-lib64.conf`.
 
 Run: 
 
@@ -59,6 +59,6 @@ Known bugs
 TODO
 ----
 
-* BusID detection for xorg.nvidia.conf
+* BusID detection for `xorg.nvidia.conf`
 * RPM package
 
