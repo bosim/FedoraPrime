@@ -12,7 +12,7 @@ In 20xx Linus Torvalds gave his famous talk at the University of Helsinki where 
 due to lack of support of, in particular, device drivers for the optimus laptop. Not long after NVIDIA provided
 both documentation for developers of the nouveau project (an open-source implementation of the NVIDIA drivers)
 and partially support for switching between the Intel and NVIDIA drivers. Canonical then began working on their
-nvidia-prime package that should make the switching simple, basically just providing one command "prime-select"
+nvidia-prime package that should make the switching simple, basically just providing one command `prime-select`
 for switching, taking either nvidia or intel as parameter. The downside is that you need to logout for the
 switching to happen. The same limitations are there for this package. 
 
@@ -32,13 +32,13 @@ Usage
 On Fedora 22 (probably also 23) install the akmod-nvidia package from rpmfusion repository. Make sure the
 kernel module is compiled. Put the following argument for the kernel in /boot/grub2/grub.cfg: 
 
-  nouveau.modeset=0 rd.driver.blacklist=nouveau 
+    nouveau.modeset=0 rd.driver.blacklist=nouveau 
 
-Run 
+Run: 
 
-  fedora-prime-init
+    fedora-prime-init
 
-Edit `/etc/fedora-prime/xorg.nvidia.conf` and add the right BusID (mine was 4:0:0, yours is probably something
+Edit `/etc/fedora-prime/xorg.nvidia.conf` and add the right `BusID` (mine was `4:0:0`, yours is probably something
 else. Find it using `lspci`)
 
 Before restart, please run `fedora-prime-select` (nvidia or intel your choice), and everything should be working
