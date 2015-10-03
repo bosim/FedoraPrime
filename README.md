@@ -29,7 +29,7 @@ and logout/login, voila you are using the requested driver.
 Usage
 -----
 
-On Fedora 22 (probably also 23) install the akmod-nvidia package from rpmfusion repository. Make sure the
+On Fedora 22 (probably also 23) install the `akmod-nvidia` package from rpmfusion repository. Make sure the
 kernel module is compiled. Put the following argument for the kernel in /boot/grub2/grub.cfg: 
 
     nouveau.modeset=0 rd.driver.blacklist=nouveau 
