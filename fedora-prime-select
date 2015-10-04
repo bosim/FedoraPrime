@@ -22,7 +22,6 @@ case $type in
   intel)
     clean_files
     ln -s /etc/fedora-prime/ld.intel.conf /etc/ld.so.conf.d/intel-lib64.conf
-    ln -s /etc/fedora-prime/xorg.intel.conf /etc/X11/xorg.conf
     ldconfig
   ;;
   *)
