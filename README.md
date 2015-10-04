@@ -19,10 +19,9 @@ switching to happen. The same limitations are there for this package.
 Features
 --------
 
-The package provides two scripts, one for setting up the config files and one for doing the actual switching.
-Since GDM relies on Wayland on Fedora 22, the switching is painless, just run:
+The package provide just one script, fedora-prime-select that will select either NVIDIA or Intel GPU, just run:
 
-    fedora-prime-select nvidia|intel
+    # fedora-prime-select nvidia|intel
 
 and logout/login, voila you are using the requested driver.
 
@@ -30,15 +29,16 @@ Usage
 -----
 
 On Fedora 22 (probably also 23) install the `akmod-nvidia` package from rpmfusion repository. Make sure the
-kernel module is compiled. Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`, `/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
+kernel module is compiled. Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`,
+`/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
 
 Install the RPM package, download it from https://dl.dropboxusercontent.com/u/43945921/fedora-prime-0.1-1.fc22.noarch.rpm
 
 Edit `/etc/fedora-prime/xorg.nvidia.conf` and add the right `BusID` (mine was `4:0:0`, yours is probably something
-else. Find it using `lspci`)
+else. Find it using `lspci`). Restart. When you login you can run `fedora-prime-select nvidia` and then logout/login
+and you will be using the NVIDIA GPU. Since the way of switching GPU does not play well with GDM we will use the
+Intel GPU are every reboot.
 
-Before restart, please run `fedora-prime-select` (nvidia or intel your choice), and everything should be working
-after restart.
 
 Author
 ------
