@@ -30,15 +30,9 @@ Usage
 -----
 
 On Fedora 22 (probably also 23) install the `akmod-nvidia` package from rpmfusion repository. Make sure the
-kernel module is compiled. Put the following argument for the kernel in /boot/grub2/grub.cfg: 
+kernel module is compiled. Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`, `/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
 
-    nouveau.modeset=0 rd.driver.blacklist=nouveau 
-
-Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`, `/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
-
-Run: 
-
-    fedora-prime-init
+Install the RPM package, download it from https://dl.dropboxusercontent.com/u/43945921/fedora-prime-0.1-1.fc22.noarch.rpm
 
 Edit `/etc/fedora-prime/xorg.nvidia.conf` and add the right `BusID` (mine was `4:0:0`, yours is probably something
 else. Find it using `lspci`)
