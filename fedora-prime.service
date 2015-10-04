@@ -1,0 +1,10 @@
+[Unit]
+Description=Enable intel GPU on boot
+Before=gdm.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/fedora-prime-select intel
+
+[Install]
+WantedBy=multi-user.target
