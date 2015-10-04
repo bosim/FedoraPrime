@@ -8,12 +8,12 @@ made for other distributions. This is exactly the functionality this package pro
 Background
 ----------
 
-In 2012, Linus Torvalds gave his famous talk at the University of Helsinki where he gave NVidia the middle finger
+In 2012, Linus Torvalds gave his famous talk at the University of Helsinki where he gave NVIDIA the middle finger
 due to lack of support of, in particular, device drivers for the optimus laptop. Not long after NVIDIA provided
 both documentation for developers of the nouveau project (an open-source implementation of the NVIDIA drivers)
 and partially support for switching between the Intel and NVIDIA drivers. Canonical then began working on their
 nvidia-prime package that should make the switching simple, basically just providing one command `prime-select`
-for switching, taking either nvidia or intel as parameter. The downside is that you need to logout for the
+for switching, taking either `nvidia` or `intel` as parameter. The downside is that you need to logout for the
 switching to happen. The same limitations are there for this package. 
 
 Features
@@ -34,6 +34,8 @@ kernel module is compiled. Put the following argument for the kernel in /boot/gr
 
     nouveau.modeset=0 rd.driver.blacklist=nouveau 
 
+Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`, `/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
+
 Run: 
 
     fedora-prime-init
@@ -49,9 +51,14 @@ Author
 
 * Bo Simonsen <bo.simonsen@gmail.com>
 
+Known bugs
+----------
+
+* If you are in Intel mode and your system has been suspended, changing to NVIDIA may result in blank screen. You would need to reboot into rescue mode and then switch to Intel mode and then reboot, login, and change to NVIDIA mode and everything is fine. Suspect it is related to the poor implementation done by NVIDIA. Ideally, we should set the mode to intel on boot, as long as this is buggy.
+
 TODO
 ----
 
-* BusID detection for xorg.nvidia.conf
+* BusID detection for `xorg.nvidia.conf`
 * RPM package
 
