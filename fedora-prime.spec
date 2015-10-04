@@ -40,6 +40,9 @@ install -p -m 0644 fedora-prime.service %{buildroot}%{_unitdir}/
 %post
 systemctl enable fedora-prime.service
 
+%preun
+systemctl disable fedora-prime.service
+
 %files 
 %doc README.md LICENSE
 %{fedora_prime_dir}/ld.intel.conf
@@ -48,8 +51,8 @@ systemctl enable fedora-prime.service
 %{fedora_prime_dir}/xorg.conf.d.nvidia.conf
 %{fedora_prime_dir}/xorg.nvidia.conf
 %{_sbindir}/fedora-prime-select
-%{_sysconfdir}/modprobe.d/blacklist-nouveau.conf
 %{_unitdir}/fedora-prime.service
+%{_sysconfdir}/modprobe.d/blacklist-nouveau.conf
 
 %changelog
 * Thu Apr 16 2015 Bo Simonsen <bo@geekworld.dk> 0.1-1
