@@ -6,3 +6,5 @@ Before=gdm.service
 Type=oneshot
 ExecStart=/usr/sbin/fedora-prime-select intel
 
+[Install]
+WantedBy=multi-user.target
