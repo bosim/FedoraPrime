@@ -4,8 +4,9 @@ Release:        1%{?dist}
 Summary:        Provides GPU (nvidia/intel) selection for NVIDIA optimus laptops
 License:        GPLv2
 URL:            https://github.com/paltas/FedoraPrime
-Source0:        FedoraPrime.zip
+Source0:        https://github.com/paltas/FedoraPrime/archive/master.zip
 BuildArch:      noarch
+BuildRequires:  systemd-units
 Requires:       akmod-nvidia
       
 %define fedora_prime_dir %{_sysconfdir}/fedora-prime
@@ -18,7 +19,7 @@ However, no such package has been made for other distributions.
 This is exactly the functionality this package provide.
 
 %prep
-%autosetup -n FedoraPrime
+%autosetup -n FedoraPrime-master
 
 %install
 mkdir -p %{buildroot}%{fedora_prime_dir}
