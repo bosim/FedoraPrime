@@ -32,7 +32,10 @@ On Fedora 22 (probably also 23) install the `akmod-nvidia` package from rpmfusio
 kernel module is compiled. Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`,
 `/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
 
-Install the RPM package, download it from https://dl.dropboxusercontent.com/u/43945921/fedora-prime-0.1-1.fc22.noarch.rpm
+Install the RPM package, use my COPR repository
+
+    # dnf copr enable bosim/fedora-prime 
+    # dnf install fedora-prime-select
 
 Edit `/etc/fedora-prime/xorg.nvidia.conf` and add the right `BusID` (mine was `4:0:0`, yours is probably something
 else. Find it using `lspci`). Restart. When you login you can run `fedora-prime-select nvidia` and then logout/login
