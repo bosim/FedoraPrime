@@ -57,5 +57,4 @@ TODO
 ----
 
 * BusID detection for `xorg.nvidia.conf`
-* RPM package
 
