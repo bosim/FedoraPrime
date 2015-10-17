@@ -9,13 +9,14 @@ function clean_files {
                "/etc/ld.so.conf.d/nvidia-lib64.conf" \
                "/etc/ld.so.conf.d/intel-lib64.conf")
 
-    for file in $files
+    for file in ${files[@]};
     do
         if [ -h $file ];
         then
             echo "Deleting $file"
             rm -f $file
-        else
+        elif [ -f $file ];
+        then
             echo "Backing up $file"
             cp $file $file.bak
         fi
