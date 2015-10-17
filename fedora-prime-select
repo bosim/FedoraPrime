@@ -19,6 +19,7 @@ function clean_files {
         then
             echo "Backing up $file"
             cp $file $file.bak
+            rm -f $file
         fi
         
     done
