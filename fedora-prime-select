@@ -1,32 +1,57 @@
-#!/bin/sh
+#!/bin/bash
 
 type=$1
 
 function clean_files {
-  rm -f /etc/X11/xorg.conf
-  rm -f /etc/X11/xorg.conf.d/99-nvidia.conf
-  rm -f /etc/X11/xinit/xinitrc.d/nvidia
-  rm -f /etc/ld.so.conf.d/nvidia-lib64.conf
-  rm -f /etc/ld.so.conf.d/intel-lib64.conf
+    files=("/etc/X11/xorg.conf" \
+               "/etc/X11/xorg.conf.d/99-nvidia.conf" \
+               "/etc/X11/xinit/xinitrc.d/nvidia" \
+               "/etc/ld.so.conf.d/nvidia-lib64.conf" \
+               "/etc/ld.so.conf.d/intel-lib64.conf")
+
+    for file in $files
+    do
+        if [ -h $file ];
+        then
+            echo "Deleting $file"
+            rm -f $file
+        else
+            echo "Backing up $file"
+            cp $file $file.bak
+        fi
+        
+    done
 }
 
 case $type in
   nvidia)
-    clean_files
-    ln -s /etc/fedora-prime/xorg.conf.d.nvidia.conf /etc/X11/xorg.conf.d/99-nvidia.conf
-    ln -s /etc/fedora-prime/ld.nvidia.conf /etc/ld.so.conf.d/nvidia-lib64.conf
-    ln -s /etc/fedora-prime/xorg.nvidia.conf /etc/X11/xorg.conf
-    ln -s /etc/fedora-prime/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
-    ldconfig
+      clean_files
+
+      echo "Linking.."
+      
+      ln -s /etc/fedora-prime/xorg.conf.d.nvidia.conf /etc/X11/xorg.conf.d/99-nvidia.conf
+      ln -s /etc/fedora-prime/ld.nvidia.conf /etc/ld.so.conf.d/nvidia-lib64.conf
+      ln -s /etc/fedora-prime/xorg.nvidia.conf /etc/X11/xorg.conf
+      ln -s /etc/fedora-prime/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
+
+      echo "Running ldconfig"
+      
+      ldconfig
   ;;
   intel)
-    clean_files
-    ln -s /etc/fedora-prime/ld.intel.conf /etc/ld.so.conf.d/intel-lib64.conf
-    ldconfig
+      clean_files
+
+      echo "Linking.."
+
+      ln -s /etc/fedora-prime/ld.intel.conf /etc/ld.so.conf.d/intel-lib64.conf
+
+      echo "Running ldconfig"
+      
+      ldconfig
   ;;
   *)
-  echo "fedora-prime-select nvidia|intel"
-  exit
+      echo "fedora-prime-select nvidia|intel"
+      exit
   ;;
 esac
 
