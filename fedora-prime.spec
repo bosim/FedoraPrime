@@ -1,6 +1,6 @@
 Name:           fedora-prime
 Version:        0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides GPU (nvidia/intel) selection for NVIDIA optimus laptops
 License:        GPLv2
 URL:            https://github.com/paltas/FedoraPrime
@@ -56,5 +56,8 @@ systemctl disable fedora-prime.service
 %{_sysconfdir}/modprobe.d/blacklist-nouveau.conf
 
 %changelog
+* Sat Oct 17 2015 Bo Simonsen <bo@geekworld.dk> 0.1-2
+- Git master ref e9ec3d6, backing up files before switching
+
 * Thu Apr 16 2015 Bo Simonsen <bo@geekworld.dk> 0.1-1
 - Initial version
