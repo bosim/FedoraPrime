@@ -46,12 +46,15 @@ Intel GPU are every reboot.
 Author
 ------
 
-* Bo Simonsen <bo.simonsen@gmail.com>
+* Bo Simonsen <bo@geekworld.dk>
 
 Known bugs
 ----------
 
-* If you are in Intel mode and your system has been suspended, changing to NVIDIA may result in blank screen. You would need to reboot into rescue mode and then switch to Intel mode and then reboot, login, and change to NVIDIA mode and everything is fine. Suspect it is related to the poor implementation done by NVIDIA. Ideally, we should set the mode to intel on boot, as long as this is buggy.
+* If you are in Intel mode and your system has been suspended, changing to NVIDIA may result in blank screen. Therefore
+you may need to reboot your machine. This is due to limitations of gdm (Ubuntu has patched gdm to run a script similar to
+`xinitrc.nvidia`, but these changes are not available upstream, thanks Ubuntu). We set the intel card active during reboot,
+so we should always be able to recover from the blackscreen by rebooting.
 
 TODO
 ----
