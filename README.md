@@ -52,12 +52,12 @@ Known bugs
 ----------
 
 * If you are using Fedora 23 with `xorg-x11-server` version `1.18.0-2.fc23` there is [known bug](https://bugs.freedesktop.org/show_bug.cgi?id=92313) which result in corrupted menus and undetectable screen resolution in `nvidia-settings`. Temporay workaround is to downgrade `xorg-x11-server` package to the one from Fedora 22 repository:
-```sh
-# downgrade package(s):
-dnf --allowerasing --releasever=22 downgrade xorg-x11-server-Xorg
-# prevent upgrade for xorg-x11* stack:
-echo 'exclude=xorg-x11*' >> /etc/dnf/dnf.conf
-```
+  ```sh
+  # downgrade package(s):
+  dnf --allowerasing --releasever=22 downgrade xorg-x11-server-Xorg
+  # prevent upgrade for xorg-x11* stack:
+  echo 'exclude=xorg-x11*' >> /etc/dnf/dnf.conf
+  ```
 **Note:** remember to remove restriction and do a system update when the fix will be available.
 
 * If you are in Intel mode and your system has been suspended, changing to NVIDIA may result in blank screen. Therefore
