@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
+# check if root
+if [[ $EUID -ne 0 ]]; then
+  printf 'Script must be executed as root.\n'
+  exit 1
+fi
+
 clean_files() {
   files=(
     '/etc/X11/xinit/xinitrc.d/nvidia'
