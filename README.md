@@ -32,6 +32,11 @@ On Fedora 22 (probably also 23) install the `akmod-nvidia` package from rpmfusio
 kernel module is compiled. Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`,
 `/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
 
+**Note:** if you had previously `nouveau` module loaded (`lsmod | grep nouveau`), don't forget to execute the following command after installing `akmod-nvidia`:
+```sh
+sudo dracut -f /boot/initramfs-$(uname -r).img $(uname -r)
+```
+
 Install the RPM package, use my COPR repository
 
     # dnf copr enable bosim/fedora-prime
