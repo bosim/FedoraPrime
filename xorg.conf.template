@@ -17,7 +17,7 @@ EndSection
 Section "Device"
     Identifier "nvidia"
     Driver "nvidia"
-    BusID "PCI:4:0:0"
+    BusID "PCI:bus_id:0:0"
     Option "DPI" "96 x 96"
 EndSection
 

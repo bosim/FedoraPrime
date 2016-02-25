@@ -35,7 +35,8 @@ case $1 in
   nvidia )
     printf "Switching to %s..." "$1"
     clean_files
-    ln -s $install_dir/xorg.conf /etc/X11/xorg.conf
+    bus_id=$(lspci | grep NVIDIA | awk '{print $1 + 0}')
+    sed "s/bus_id/$bus_id/g" $install_dir/xorg.conf.template > /etc/X11/xorg.conf
     ln -s $install_dir/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
     echo '/usr/lib64/nvidia' > $nvidia64_lib_file
     if [[ -f $nvidia32_lib_file ]]; then

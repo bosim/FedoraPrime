@@ -72,8 +72,3 @@ Known bugs
 you may need to reboot your machine. This is due to limitations of gdm (Ubuntu has patched gdm to run a script similar to
 `xinitrc.nvidia`, but these changes are not available upstream, thanks Ubuntu). We set the intel card active during reboot,
 so we should always be able to recover from the blackscreen by rebooting.
-
-TODO
-----
-
-* BusID detection for `xorg.nvidia.conf`
