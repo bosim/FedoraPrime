@@ -44,8 +44,7 @@ Install the RPM package, use my COPR repository
     # dnf copr enable bosim/fedora-prime
     # dnf install fedora-prime-select
 
-Edit `/etc/fedora-prime/xorg.nvidia.conf` and add the right `BusID` (mine was `4:0:0`, yours is probably something
-else. Find it using `lspci`). Restart. When you login you can run `fedora-prime-select nvidia` and then logout/login
+Restart. When you login you can run `fedora-prime-select nvidia` and then logout/login
 and you will be using the NVIDIA GPU. Since the way of switching GPU does not play well with GDM we will use the
 Intel GPU are every reboot.
 
