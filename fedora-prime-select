@@ -1,59 +1,61 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 
-type=$1
+# check if root
+if [[ $EUID -ne 0 ]]; then
+  printf 'Script must be executed as root.\n'
+  exit 1
+fi
 
-function clean_files {
-    files=("/etc/X11/xorg.conf" \
-               "/etc/X11/xorg.conf.d/99-nvidia.conf" \
-               "/etc/X11/xinit/xinitrc.d/nvidia" \
-               "/etc/ld.so.conf.d/nvidia-lib64.conf" \
-               "/etc/ld.so.conf.d/intel-lib64.conf")
+clean_files() {
+  files=(
+    '/etc/X11/xinit/xinitrc.d/nvidia'
+    '/etc/X11/xorg.conf.d/00-avoid-glamor.conf'
+    '/etc/X11/xorg.conf.d/99-nvidia.conf'
+    '/etc/X11/xorg.conf'
+  )
 
-    for file in ${files[@]};
-    do
-        if [ -h $file ];
-        then
-            echo "Deleting $file"
-            rm -f $file
-        elif [ -f $file ];
-        then
-            echo "Backing up $file"
-            cp $file $file.bak
-            rm -f $file
-        fi
-        
-    done
+  for file in "${files[@]}"; do
+    if [[ -h $file ]]; then
+      echo "Deleting $file"
+      rm -f "$file"
+    elif [[ -f $file ]]; then
+      echo "Backing up $file"
+      cp "$file" "$file.fedora-prime.bak"
+      rm -f "$file"
+    fi
+  done
 }
 
-case $type in
-  nvidia)
-      clean_files
+install_dir='/etc/fedora-prime'
 
-      echo "Linking.."
-      
-      ln -s /etc/fedora-prime/xorg.conf.d.nvidia.conf /etc/X11/xorg.conf.d/99-nvidia.conf
-      ln -s /etc/fedora-prime/ld.nvidia.conf /etc/ld.so.conf.d/nvidia-lib64.conf
-      ln -s /etc/fedora-prime/xorg.nvidia.conf /etc/X11/xorg.conf
-      ln -s /etc/fedora-prime/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
-
-      echo "Running ldconfig"
-      
-      ldconfig
-  ;;
-  intel)
-      clean_files
-
-      echo "Linking.."
-
-      ln -s /etc/fedora-prime/ld.intel.conf /etc/ld.so.conf.d/intel-lib64.conf
-
-      echo "Running ldconfig"
-      
-      ldconfig
-  ;;
-  *)
-      echo "fedora-prime-select nvidia|intel"
-      exit
-  ;;
+case $1 in
+  nvidia )
+    printf "Switching to %s..." "$1"
+    clean_files
+    ln -s $install_dir/xorg.conf /etc/X11/xorg.conf
+    ln -s $install_dir/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
+    echo '/usr/lib64/nvidia' > /etc/ld.so.conf.d/nvidia-lib64.conf
+    if [[ -f /etc/ld.so.conf.d/nvidia-lib.conf ]]; then
+      echo '/usr/lib/nvidia' > /etc/ld.so.conf.d/nvidia-lib.conf
+    fi
+    ;;
+  intel )
+    printf "Switching to %s..." "$1"
+    clean_files
+    echo '/usr/lib64' > /etc/ld.so.conf.d/nvidia-lib64.conf
+    if [[ -f /etc/ld.so.conf.d/nvidia-lib.conf ]]; then
+      echo '# disabled by fedora-prime' > /etc/ld.so.conf.d/nvidia-lib.conf
+    fi
+    ;;
+  * )
+    printf "Usage:\n  %s intel|nvidia\n" "$(basename "$0")"
+    exit 1
+    ;;
 esac
 
+printf "Running ldconfig...\n"
+ldconfig
+
+printf "Switching to %s completed.\n" "$1"
+printf "Please logout for changes to take effect.\n"

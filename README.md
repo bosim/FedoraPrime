@@ -32,6 +32,13 @@ On Fedora 22 (probably also 23) install the `akmod-nvidia` package from rpmfusio
 kernel module is compiled. Backup the following files (will be deleted by fedora-prime-select): `/etc/X11/xorg.conf`,
 `/etc/X11/xorg.conf.d/99-nvidia.conf`, and `/etc/ld.so.conf.d/nvidia-lib64.conf`.
 
+**Note:** if you had previously `nouveau` module loaded (`lsmod | grep nouveau`), don't forget to execute the following command after installing `akmod-nvidia` for blacklisting to take effect:
+```sh
+sudo mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r)-nouveau.img
+sudo dracut -f /boot/initramfs-$(uname -r).img $(uname -r)
+```
+Also install `xorg-x11-drv-nvidia-libs.i686` package If you wish to have 3D acceleration in 32bit packages.
+
 Install the RPM package, use my COPR repository
 
     # dnf copr enable bosim/fedora-prime
@@ -56,9 +63,10 @@ Known bugs
   # downgrade package(s):
   dnf --allowerasing --releasever=22 downgrade xorg-x11-server-Xorg
   # prevent upgrade for xorg-x11* stack:
-  echo 'exclude=xorg-x11*' >> /etc/dnf/dnf.conf
+  dnf install python3-dnf-plugins-extras-versionlock
+  dnf versionlock add xorg-x11*
   ```
-**Note:** remember to remove restriction and do a system update when the fix will be available.
+**Note:** remember to remove restriction (`dnf versionlock delete xorg-x11*`) and do a system update when the fix will be available.
 
 * If you are in Intel mode and your system has been suspended, changing to NVIDIA may result in blank screen. Therefore
 you may need to reboot your machine. This is due to limitations of gdm (Ubuntu has patched gdm to run a script similar to
