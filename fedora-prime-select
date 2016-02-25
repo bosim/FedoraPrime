@@ -36,11 +36,17 @@ case $1 in
     ln -s $install_dir/xorg.conf /etc/X11/xorg.conf
     ln -s $install_dir/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
     echo '/usr/lib64/nvidia' > /etc/ld.so.conf.d/nvidia-lib64.conf
+    if [[ -f /etc/ld.so.conf.d/nvidia-lib.conf ]]; then
+      echo '/usr/lib/nvidia' > /etc/ld.so.conf.d/nvidia-lib.conf
+    fi
     ;;
   intel )
     printf "Switching to %s..." "$1"
     clean_files
     echo '/usr/lib64' > /etc/ld.so.conf.d/nvidia-lib64.conf
+    if [[ -f /etc/ld.so.conf.d/nvidia-lib.conf ]]; then
+      echo '# disabled by fedora-prime' > /etc/ld.so.conf.d/nvidia-lib.conf
+    fi
     ;;
   * )
     printf "Usage:\n  %s intel|nvidia\n" "$(basename "$0")"

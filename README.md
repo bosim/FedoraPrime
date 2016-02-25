@@ -37,6 +37,7 @@ kernel module is compiled. Backup the following files (will be deleted by fedora
 sudo mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r)-nouveau.img
 sudo dracut -f /boot/initramfs-$(uname -r).img $(uname -r)
 ```
+Also install `xorg-x11-drv-nvidia-libs.i686` package If you wish to have 3D acceleration in 32bit packages.
 
 Install the RPM package, use my COPR repository
 
