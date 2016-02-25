@@ -62,9 +62,10 @@ Known bugs
   # downgrade package(s):
   dnf --allowerasing --releasever=22 downgrade xorg-x11-server-Xorg
   # prevent upgrade for xorg-x11* stack:
-  echo 'exclude=xorg-x11*' >> /etc/dnf/dnf.conf
+  dnf install python3-dnf-plugins-extras-versionlock
+  dnf versionlock add xorg-x11*
   ```
-**Note:** remember to remove restriction and do a system update when the fix will be available.
+**Note:** remember to remove restriction (`dnf versionlock delete xorg-x11*`) and do a system update when the fix will be available.
 
 * If you are in Intel mode and your system has been suspended, changing to NVIDIA may result in blank screen. Therefore
 you may need to reboot your machine. This is due to limitations of gdm (Ubuntu has patched gdm to run a script similar to
