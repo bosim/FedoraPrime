@@ -23,7 +23,7 @@ This is exactly the functionality this package provide.
 
 %install
 mkdir -p %{buildroot}%{fedora_prime_dir}
-install -p -m 0644 xorg.conf %{buildroot}%{fedora_prime_dir}/
+install -p -m 0644 xorg.conf.template %{buildroot}%{fedora_prime_dir}/
 install -p -m 0755 xinitrc.nvidia %{buildroot}%{fedora_prime_dir}/
 
 mkdir -p %{buildroot}%{_sbindir}
@@ -41,7 +41,7 @@ systemctl disable fedora-prime.service
 %files
 %doc README.md LICENSE
 %{fedora_prime_dir}/xinitrc.nvidia
-%{fedora_prime_dir}/xorg.conf
+%{fedora_prime_dir}/xorg.conf.template
 %{_sbindir}/fedora-prime-select
 %{_unitdir}/fedora-prime.service
 
