@@ -41,7 +41,7 @@ sudo fedora-prime-select nvidia
 sudo fedora-prime-select intel
 ```
 
-Now all you have to do is logout and then login back and you should be using a desired graphic card. You can verify it by running `glxinfo | 'OpenGL renderer string'` for example.
+Now all you have to do is logout and then login back and you should be using a desired graphic card. You can verify it by running `glxinfo | grep 'OpenGL renderer string'` for example.
 
 
 ## Known bugs
