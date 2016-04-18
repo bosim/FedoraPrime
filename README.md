@@ -13,6 +13,7 @@ Supported operating systems: Fedora **22**, Fedora **23**.
 * Install NVIDIA drivers from [RPM Fusion](http://rpmfusion.org/) repository (you need to enable it first, if you haven't already, follow [instruction on the site](http://rpmfusion.org/Configuration)):
   ```sh
   sudo dnf install kernel-devel akmod-nvidia
+  # for 32 bit compatibility also install: xorg-x11-drv-nvidia-libs.i686
   ```
 
 * Make sure that `nouveau` (an open source NVIDIA driver) is blacklisted:
