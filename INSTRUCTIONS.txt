@@ -1,5 +1,4 @@
 Make the installer executable:
-
 	chmod +x /path/to/NVIDIA-Linux-*.run
 
 Change to root user
@@ -23,11 +22,11 @@ Edit /etc/sysconfig/grub
 	Append 'rd.driver.blacklist=nouveau' to end of 'GRUB_CMDLINE_LINUX="…"'
 
 Update grub2 configuration 
-## BIOS ##
-grub2-mkconfig -o /boot/grub2/grub.cfg
+	## BIOS ##
+	grub2-mkconfig -o /boot/grub2/grub.cfg
  
-## UEFI ##
-grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+	## UEFI ##
+	grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 
 Generate a new initramfs
 
