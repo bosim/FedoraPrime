@@ -43,6 +43,15 @@ case $1 in
     fi
     # add desktop file (thanks, Arch wiki!!) 
     cp $install_dir/gdm_display_setup.desktop /usr/share/gdm/greeter/autostart/gdm_display_setup.desktop
+    
+    ldconfig
+   	#remove link to libwfb in nvidia installation dir. This library is already provided by xorg
+   	#and anyway it would fail with the nvidia library 
+    rm -f /usr/lib64/nvidia/xorg/modules/libwfb.so 
+    #link libGL.so.1 to point to the nvidia libraries 
+	ln -sf /usr/lib64/nvidia/libGL.so.1 /usr/lib64/libGL.so.1
+	ln -sf /usr/lib/nvidia/libGL.so.1 /usr/lib/libGL.so.1
+    
     ;;
   intel )
     clean_files
@@ -52,6 +61,7 @@ case $1 in
     fi
     #remove desktop file
     rm -f /usr/share/gdm/greeter/autostart/gdm_display_setup.desktop
+    ldconfig
     ;;
   * )
     printf "Usage:\n  %s intel|nvidia\n" "$(basename "$0")"
@@ -59,7 +69,6 @@ case $1 in
     ;;
 esac
 
-ldconfig
 
 printf "Successfully switched to %s.\n" "$1"
 printf "Please logout for changes to take effect.\n"

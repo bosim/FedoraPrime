@@ -1,0 +1,50 @@
+Make the installer executable:
+
+	chmod +x /path/to/NVIDIA-Linux-*.run
+
+Change to root user
+	su root
+	
+Update the system:
+	dnf update
+
+In case the kernel has been upgraded, reboot to ensure that you are running the latest kernel
+
+Install dependencies:
+
+	dnf install kernel-devel kernel-headers gcc dkms acpid
+
+Disable nouveau:
+
+	echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
+
+
+Edit /etc/sysconfig/grub
+	Append 'rd.driver.blacklist=nouveau' to end of 'GRUB_CMDLINE_LINUX="…"'
+
+Update grub2 configuration 
+## BIOS ##
+grub2-mkconfig -o /boot/grub2/grub.cfg
+ 
+## UEFI ##
+grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+
+Generate a new initramfs
+
+	## Backup old initramfs image ##
+	mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r)-nouveau.img
+ 
+	## Create new initramfs image ##
+	dracut /boot/initramfs-$(uname -r).img $(uname -r)
+	
+Reboot to runlevel 3
+	systemctl set-default multi-user.target && reboot
+	
+	You can also enter runlvel 3 pressing "e" key when booting on the grub menu appending "3" to the initramfs line and pressing ctrl + x
+
+Run the binary installer with the following options:
+	./NVIDIA-Linux-*.run --accept-license --silent --no-x-check --no-nouveau-check --no-recursion --opengl-libdir=lib64/nvidia --opengl-prefix=/usr --x-library-path=lib64/nvidia --x-prefix=/usr --x-module-path=/usr/lib64/nvidia/xorg/modules --compat32-libdir=lib/nvidia --compat32-prefix=/usr   --force-selinux=yes
+
+
+The installation process has been learned from here. See for more info the excelent resource:
+ http://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/
