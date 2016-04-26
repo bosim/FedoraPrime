@@ -12,7 +12,7 @@ install:
 	cp ./gdm_display_setup.desktop $(INSTALL_DIR)/gdm_display_setup.desktop
 
 uninstall:
-	rm -rf $(INSTALL_DIR)
 	rm -f /usr/sbin/fedora-prime-select
 	rm -f /etc/X11/xinit/xinitrc.d/nvidia
 	rm -f /usr/share/gdm/greeter/autostart/gdm_display_setup.desktop
+	rm -rf $(INSTALL_DIR)
