@@ -24,7 +24,7 @@ Supported operating systems: Fedora **22**, Fedora **23**.
 
 * Install FedoraPrime:
   ```sh
-  git clone https://github.com/mvoropaiev/FedoraPrime.git
+  git clone https://github.com/bosim/FedoraPrime.git
   cd FedoraPrime
   sudo make install
   # to uninstall, simply run:
