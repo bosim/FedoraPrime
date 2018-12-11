@@ -41,6 +41,8 @@ case $1 in
     if [[ -f $nvidia32_lib_file ]]; then
       printf '/usr/lib/nvidia' > $nvidia32_lib_file
     fi
+    # add desktop file (thanks, Arch wiki!!) 
+    cp $install_dir/gdm_display_setup.desktop /usr/share/gdm/greeter/autostart/gdm_display_setup.desktop
     ;;
   intel )
     clean_files
@@ -48,6 +50,8 @@ case $1 in
     if [[ -f $nvidia32_lib_file ]]; then
       printf '/usr/lib' > $nvidia32_lib_file
     fi
+    #remove desktop file
+    rm -f /usr/share/gdm/greeter/autostart/gdm_display_setup.desktop
     ;;
   * )
     printf "Usage:\n  %s intel|nvidia\n" "$(basename "$0")"

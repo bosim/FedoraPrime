@@ -1,42 +1,16 @@
-Section "ServerLayout"
-    Identifier "layout"
-    Screen 0 "nvidia"
-    Inactive "intel"
+Section "Module"
+  Load "modesetting"
 EndSection
 
 Section "Device"
-    Identifier "intel"
-    Driver "intel"
+  Identifier "nvidia"
+  Driver "nvidia"
+  BusID "PCI:bus_id:0:0"
+  Option "AllowEmptyInitialConfiguration"
+  Option "IgnoreDisplayDevices" "CRT"
 EndSection
 
-Section "Screen"
-    Identifier "intel"
-    Device "intel"
-EndSection
-
-Section "Device"
-    Identifier "nvidia"
-    Driver "nvidia"
-    BusID "PCI:bus_id:0:0"
-    Option "DPI" "96 x 96"
-EndSection
-
-Section "Screen"
-    Identifier "nvidia"
-    Device "nvidia"
-    Option "AllowEmptyInitialConfiguration" "on"
-    Option "UseDisplayDevice" "None"
-EndSection
-
-# xorg-x11-drv-nvidia, original location:
-#   /etc/X11/xorg.conf.d/99-nvidia.conf
 Section "Files"
   ModulePath   "/usr/lib64/nvidia/xorg"
   ModulePath   "/usr/lib64/xorg/modules"
-EndSection
-
-# xorg-x11-drv-nvidia, original location:
-#  /etc/X11/xorg.conf.d/00-avoid-glamor.conf
-Section "Module"
-  Disable "glamoregl"
 EndSection
