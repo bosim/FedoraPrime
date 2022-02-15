@@ -35,7 +35,7 @@ case $1 in
   nvidia )
     clean_files
     bus_id=$(lspci | grep NVIDIA | awk '{print $1 + 0}')
-    sed "s/bus_id/$bus_id/g" $install_dir/xorg.conf.template > /etc/X11/xorg.conf
+    sed 's/bus_id/${bus_id}/g' $install_dir/xorg.conf.template > /etc/X11/xorg.conf
     ln -s $install_dir/xinitrc.nvidia /etc/X11/xinit/xinitrc.d/nvidia
     printf '/usr/lib64/nvidia' > $nvidia64_lib_file
     if [[ -f $nvidia32_lib_file ]]; then
